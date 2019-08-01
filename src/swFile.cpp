@@ -46,13 +46,40 @@ void
 File::write(void* data, int size)
 {
   std::ofstream fout;
+
+  //Open file with name given, binary write and just for write
+  fout.open(m_name, std::ios::binary | std::ios::in);
+
+  //If couldn't open it then return doing nothing
+  if(fout.fail())
+  {
+    return;
+  }
+
+  fout.write(static_cast<char*>(data), size);
+  fout.close();
+}
+
+/*
+*/
+void
+File::read(void* data)
+{
+  std::ifstream fout;
+  //Open file with name given, binary write and just for read
   fout.open(m_name, std::ios::binary | std::ios::out);
 
-  if(fout.is_open())
+  //If couldn't open it then return doing nothing
+  if(fout.fail())
   {
-    fout.write(static_cast<char*>(data), size);
-    fout.close();
+    return;
   }
+  
+  Vector<unsigned char> buffer(std::istreambuf_iterator<char>(fout), {});
+
+  return;
+
+
 }
 
 }

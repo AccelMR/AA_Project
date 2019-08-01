@@ -42,10 +42,17 @@ class File
    * @param data
    * @param size of data
    *
-   * NOTE: prefer create file before. 
+   * NOTE: File needs to be created before write() otherwise it does nothing
    */
   void
   write(void* data, int size);
+
+  /** 
+   * @brief read this file 
+   * @param[out] data extracted from this file will be save here
+   */
+  void
+  read(void* data);
 
  private:
 
