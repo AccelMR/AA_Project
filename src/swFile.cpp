@@ -43,7 +43,7 @@ File::create(String name)
 /*
 */
 void
-File::write(void* data, int size)
+File::overWrite(const Vector<unsigned char>& data)
 {
   std::ofstream fout;
 
@@ -56,14 +56,39 @@ File::write(void* data, int size)
     return;
   }
 
-  fout.write(static_cast<char*>(data), size);
+  fout.write(reinterpret_cast<const char*>(&data[0]), data.size() * sizeof(unsigned char));
   fout.close();
 }
 
 /*
 */
 void
-File::read(void* data)
+File::write(const Vector<unsigned char>& data)
+{
+//   Vector<unsigned char> realData;
+//   read(realData);
+//   realData.insert(realData.begin(), data.begin(), data.end());
+
+  std::ofstream fout;
+
+  //Open file with name given, binary write and just for write
+  fout.open(m_name, std::ios::binary | std::ios::in | std::ios::app);
+
+  //If couldn't open it then return doing nothing
+  if(fout.fail())
+  {
+    return;
+  }
+
+
+  fout.write(reinterpret_cast<const char*>(&data[0]), data.size() * sizeof(unsigned char));
+  fout.close();
+}
+
+/*
+*/
+void
+File::read(Vector< unsigned char>& data)
 {
   std::ifstream fout;
   //Open file with name given, binary write and just for read
@@ -74,12 +99,11 @@ File::read(void* data)
   {
     return;
   }
-  
+
   Vector<unsigned char> buffer(std::istreambuf_iterator<char>(fout), {});
+  data.resize(buffer.size());
 
-  return;
-
-
+  memcpy(&data[0], &buffer[0], buffer.size());
 }
 
 }

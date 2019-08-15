@@ -133,10 +133,12 @@
     <ClInclude Include="..\include\swPlatfromTypes.h" />
     <ClInclude Include="..\include\swPrerequisitesProject.h" />
     <ClInclude Include="..\include\swSTDHeaders.h" />
+    <ClInclude Include="..\include\swTextureInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\swFile.cpp" />
+    <ClCompile Include="..\src\swTextureInfo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

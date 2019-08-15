@@ -38,28 +38,39 @@ class File
   create(String name);
 
   /** 
-   * @brief Writes given data in created file
+   * @brief Writes given data but erase previous if file exist already
    * @param data
    * @param size of data
    *
    * NOTE: File needs to be created before write() otherwise it does nothing
    */
   void
-  write(void* data, int size);
+  overWrite(const Vector<unsigned char>& data);
+
+  /**
+ * @brief Writes given data in created file
+ * @param data
+ * @param size of data
+ *
+ * NOTE: File needs to be created before write() otherwise it does nothing
+ */
+  void
+  write(const Vector<unsigned char>& data);
 
   /** 
    * @brief read this file 
    * @param[out] data extracted from this file will be save here
+   * @param[out] size of info extracted
    */
   void
-  read(void* data);
+  read(Vector<unsigned char>& data);
 
  private:
 
    /** 
     * @brief name of this file
     */
-   String m_name;
+   String m_name = "Prueba";
  
 };
 }

@@ -1,18 +1,32 @@
 #include "swPrerequisitesProject.h"
 #include "swFile.h"
+#include "swTextureInfo.h"
 
 int main()
 {
-  //swEngineSDK::String caca = "Popochas";
-  int a[10] = { 0,1,2,3,4,5,6,7,8,9 };
-  int size = 0;
-
-  int b[10];
+  //Helper variables
   swEngineSDK::File myFile;
+  swEngineSDK::TextureInfo myTexture;
+  swEngineSDK::TextureInfo textureCpy;
 
+  //Load texture pixels
+  myTexture.loadTextureInfo(R"(Resources\Red.bmp)");
+
+  //Creates an empty File
   myFile.create("Prueba");
-  myFile.write(static_cast<void*>(&a[0]), sizeof(int) * 10);
-  myFile.read(&b);
+  
+  //Writes the Texture info to empty file
+  myFile.overWrite(myTexture.getInfo());
+
+  //Create temporal variables 
+  swEngineSDK::Vector<unsigned char> info;
+  swEngineSDK::int32 size;
+
+  //Extract info from previous texture and writes it in temporal variables
+  myFile.read(info);
+
+  //Set the new info to texture copy
+  textureCpy.setInfo(info);
   
   return 0;
 }
